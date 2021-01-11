@@ -5,25 +5,18 @@
 #define NEC_1_PAUSE_DURATION 1687
 
 NECTransmitter::NECTransmitter(uint8_t pin, bool activeLow)
-    : pin(pin), activeLow(activeLow) {
+    : pin(pin), activeValue(activeLow ? LOW : HIGH),
+      nonActiveValue(activeLow ? HIGH : LOW) {
   pinMode(pin, OUTPUT);
 
   // Output non-active value.
-  digitalWrite(pin, GetActiveValue(false));
-}
-
-uint8_t NECTransmitter::GetActiveValue(bool active) const {
-  if (active) {
-    return activeLow ? LOW : HIGH;
-  }
-
-  return activeLow ? HIGH : LOW;
+  digitalWrite(pin, nonActiveValue);
 }
 
 void NECTransmitter::SendPulse(bool value) const {
-  digitalWrite(pin, GetActiveValue(true));
+  digitalWrite(pin, activeValue);
   delayMicroseconds(NEC_VALUE_PULSE_DURATION);
-  digitalWrite(pin, GetActiveValue(false));
+  digitalWrite(pin, nonActiveValue);
 
   if (value) {
     delayMicroseconds(NEC_1_PAUSE_DURATION);
@@ -45,20 +38,30 @@ void NECTransmitter::SendByte(uint8_t byte) const {
 }
 
 void NECTransmitter::SendNEC(uint8_t address, uint8_t command) const {
-  // Send AGC (9ms pulse)
-  digitalWrite(pin, GetActiveValue(true));
+
+  // Disable interrupts.
+  cli();
+
+  // Send AGC (9ms pulse).
+  digitalWrite(pin, activeValue);
   delayMicroseconds(9000);
 
-  // Send space
-  digitalWrite(pin, GetActiveValue(false));
+  // Send space.
+  digitalWrite(pin, nonActiveValue);
   delayMicroseconds(4500);
 
-  // Send address
+  // Send address.
   SendByte(address);
 
-  // Send code
+  // Send code.
   SendByte(command);
 
-  // End
+  // End.
   SendPulse(false);
+
+  // Re-enable interrupts.
+  sei();
+
+  // Reset to non active.
+  digitalWrite(pin, nonActiveValue);
 }

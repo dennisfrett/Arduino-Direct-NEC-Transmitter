@@ -19,5 +19,6 @@ private:
   const uint8_t pin;
 
   // Denotes whether a high or low level indicates active.
-  const bool activeLow;
+  const uint8_t activeValue;
+  const uint8_t nonActiveValue;
 };
