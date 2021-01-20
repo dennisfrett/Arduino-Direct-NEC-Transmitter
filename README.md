@@ -9,7 +9,7 @@ The pinout of these devices is typically as follows:
 - **Ring**: Activates on a pulse. Typically active low.
 - **Sleeve**: Ground.
 
-The receiving devices expects an unmodulated signal on the data line (*ring*). 
+The receiving device expects an unmodulated signal on the data line (*ring*). 
 
 This libary allows you to connect any microcontroller, like an Arduino or even a Raspberry Pi directly to the IR input of such a device, completely bypassing the need for emitting the signal through an IR LED.
 
