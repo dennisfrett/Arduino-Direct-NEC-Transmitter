@@ -9,10 +9,16 @@ The pinout of these devices is typically as follows:
 - **Ring**: Activates on a pulse. Typically active low.
 - **Sleeve**: Ground.
 
-The ring expected an unmodulated signal. 
+The receiving devices expects an unmodulated signal on the data line (*ring*). 
 
 This libary allows you to connect any microcontroller, like an Arduino or even a Raspberry Pi directly to the IR input of such a device, completely bypassing the need for emitting the signal through an IR LED.
 
 When connecting your controller to such an input, it's probably best if you only connect the data line (*ring*) and ground (*sleeve*), the current requirement of the microcontroller is likely too high for the device to provide.
 
+This library cannot be used to control an IR LED directly, since there modulation is required.
+There are multiple libraries out there that can be used to control IR LEDs from Arduino:
+- https://github.com/Arduino-IRremote/Arduino-IRremote
+- https://github.com/ukw100/IRMP
+
 See for more information on the NEC IR protocol: https://techdocs.altium.com/display/FPGA/NEC+Infrared+Transmission+Protocol
+
