@@ -11,9 +11,14 @@ public:
   /// needed, the logical inverse is calculated automatically.
   void SendNEC(uint8_t address, uint8_t command) const;
 
+  /// Send given Extended NEC command. 16 address bits and the 8 command bits
+  /// are needed, the logical inverse of the command is calculated
+  /// automatically.
+  void SendExtendedNEC(uint16_t address, uint8_t command) const;
+
 private:
   /// Send the given byte as NEC.
-  void SendByte(uint8_t byte) const;
+  void SendByte(uint8_t byte, bool includeInverse = true) const;
 
   /// Send a 0 or 1 pulse. Value `true` means 1, `false` means 0.
   void SendPulse(bool value) const;
