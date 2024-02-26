@@ -1,0 +1,23 @@
+{
+  "name": "Arduino Direct NEC Transmitter",
+  "version": "1.0.0",
+  "description": "Library to send (extended) NEC IR pulses without a carrier wave. Typically over a 3.5mm jack.",
+  "keywords": "nec, direct, carrier. ir, extended",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/dennisfrett/Arduino-Direct-NEC-Transmitter"
+  },
+  "authors":
+  [
+    {
+      "name": "Dennis Frett",
+      "email": "dennis.frett@live.com",
+      "url": "https://github.com/dennisfrett"
+    }
+  ],
+  "license": "Unlicense",
+  "homepage": "https://unlicense.org/",
+  "frameworks": "*",
+  "platforms": "arduino"
+}
